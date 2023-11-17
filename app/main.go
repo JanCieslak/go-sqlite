@@ -198,6 +198,7 @@ func RunCommand(databaseFilePath string, command string) error {
 
 			log.Println("Serials:", serials)
 
+		loop:
 			for i, serial := range serials {
 				switch {
 				case serial == 1:
@@ -215,7 +216,7 @@ func RunCommand(databaseFilePath string, command string) error {
 					if i == 1 {
 						tables = append(tables, string(text))
 						// TODO: temp fix: Err too much serials (additional 1 at the end)
-						break
+						break loop
 					}
 					log.Printf("Text: %s\n", text)
 				}
