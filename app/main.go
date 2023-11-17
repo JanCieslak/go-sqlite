@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github/com/codecrafters-io/sqlite-starter-go/app/sqlite"
 	"github/com/codecrafters-io/sqlite-starter-go/app/sqlite/varint"
-	"io"
 	"log"
 	"os"
 	// Available if you need it!
@@ -76,7 +75,7 @@ func RunCommand(databaseFilePath string, command string) error {
 		fmt.Printf("Fragmented free bytes: %d\n", fragmentedFreeBytes)
 
 	case ".tables":
-		log.SetOutput(io.Discard)
+		//log.SetOutput(io.Discard)
 
 		databaseFile, err := os.Open(databaseFilePath)
 		if err != nil {
@@ -154,7 +153,7 @@ func RunCommand(databaseFilePath string, command string) error {
 
 		for _, offset := range offsets {
 			// TODO: figure out a size
-			cell := bytes.NewBuffer(page[offset : offset+200])
+			cell := bytes.NewBuffer(page[offset:])
 
 			numOfBytes, err := varint.Decode(cell)
 			if err != nil {
@@ -215,6 +214,8 @@ func RunCommand(databaseFilePath string, command string) error {
 					}
 					if i == 1 {
 						tables = append(tables, string(text))
+						// TODO: temp fix: Err too much serials (additional 1 at the end)
+						break
 					}
 					log.Printf("Text: %s\n", text)
 				}
