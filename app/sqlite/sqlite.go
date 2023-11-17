@@ -1,4 +1,4 @@
-package btree
+package sqlite
 
 type PageType byte
 
