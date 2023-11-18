@@ -10,5 +10,18 @@ const (
 )
 
 type Header struct {
+}
+
+type Page struct {
 	Type PageType
+}
+
+type Database struct {
+	Header Header
+	Pages  []Page
+}
+
+func ParseDatabase(filename string) (*Database, error) {
+
+	return nil, nil
 }
